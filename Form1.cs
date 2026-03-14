@@ -54,7 +54,7 @@ namespace CatchButton
             int nextY = localRd.Next(0, maxY + 1);
 
             // ４．마우스　포인터　변경 (제미나이 도움)
-            IntPtr ptrHover = LoadCursorFromFile("alternate.ani");
+            IntPtr ptrHover = LoadCursorFromFile("pointer.ani");
             if (ptrHover != IntPtr.Zero) run.Cursor = new Cursor(ptrHover);
 
             // ５. 위치 할당(새로운 Point 객체 생성)
@@ -84,13 +84,22 @@ namespace CatchButton
             if (e.Button == MouseButtons.Left)
             {
                 // 좌클릭 포인터 변경 (제미나이)
-                IntPtr ptrLeft = LoadCursorFromFile("pointer.ani");
+                IntPtr ptrLeft = LoadCursorFromFile("alternate.ani");
                 if (ptrLeft != IntPtr.Zero) this.Cursor = new Cursor(ptrLeft);
 
-                //　좌클릭으로　잡았을　때
+                // 성공 효과음
                 System.Media.SoundPlayer catchSound = new System.Media.SoundPlayer("jingles_STEEL06.wav");
                 catchSound.Play();
+
+                // 포인터 보여주는 시간
+                Application.DoEvents();
+                System.Threading.Thread.Sleep(1000);
+
+                //　좌클릭으로　잡았을　때
                 MessageBox.Show("축하합니다~!", "성공");
+
+                // 포인터 복구 (up안됨)
+                this.Cursor = Cursors.Default;
             }
 
             // 2. 우클릭
@@ -100,8 +109,15 @@ namespace CatchButton
                 IntPtr ptrRight = LoadCursorFromFile("help.ani");
                 if (ptrRight != IntPtr.Zero) this.Cursor = new Cursor(ptrRight);
 
+                // 포인터 보여주는 시간
+                Application.DoEvents();
+                System.Threading.Thread.Sleep(1000);
+
                 // 우클릭으로 잡았을 때
                 MessageBox.Show("좌클릭으로 잡으세요", "다시");
+
+                // 포인터 복구 (up안됨)
+                this.Cursor = Cursors.Default;
             }
         }
     }
