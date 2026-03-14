@@ -29,12 +29,6 @@ namespace CatchButton
 
         private void Form1_MouseEnter(object sender, EventArgs e)
         {
-            // 새로운위치값세팅. 새로운X,Y 좌표값
-            int x_position = 100;
-            int y_position = 150;
-
-            // 버튼을 새로운 위치로 옮김(새로운 Point 객체 생성)
-            run.Location = new Point(x_position, y_position);
 
         }
 
@@ -61,10 +55,19 @@ namespace CatchButton
             // 5. 시각적 피드백(폼 제목 표시줄에 좌표 출력)
             this.Text = $"버튼위치: ({nextX}, {nextY})";
 
+            // 6. 놓쳤을 때 효과음
+            System.Media.SoundPlayer escapeSound = new System.Media.SoundPlayer("jingles_PIZZI07.wav");
+            escapeSound.Play();
         }
 
         private void run_Click(object sender, EventArgs e)
         {
+            // 1. 잡았을 때 효과음
+            System.Media.SoundPlayer catchSound = new System.Media.SoundPlayer("jingles_STEEL06.wav");
+            catchSound.Play();
+            
+            // 2. 잡았을 때 메시지
+            MessageBox.Show("축하합니다~!", "성공");
 
         }
 
