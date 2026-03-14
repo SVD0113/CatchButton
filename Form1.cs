@@ -12,6 +12,9 @@ namespace CatchButton
 {
     public partial class Form1 : Form
     {
+        // <제미나이> Win32 Api활용
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern IntPtr LoadCursorFromFile(string fileName);
 
         // 필드 선언
         private Random rd;
@@ -50,8 +53,9 @@ namespace CatchButton
             int nextX = localRd.Next(0, maxX + 1);
             int nextY = localRd.Next(0, maxY + 1);
 
-            // ４．마우스　포인터　변경
-            run.Cursor = new Cursor("pointer.ani");
+            // ４．마우스　포인터　변경 (제미나이 도움)
+            IntPtr ptrHover = LoadCursorFromFile("alternate.ani");
+            if (ptrHover != IntPtr.Zero) run.Cursor = new Cursor(ptrHover);
 
             // ５. 위치 할당(새로운 Point 객체 생성)
             run.Location = new Point(nextX, nextY);
@@ -79,8 +83,9 @@ namespace CatchButton
             // 1. 좌클릭
             if (e.Button == MouseButtons.Left)
             {
-                // 좌클릭 포인터 변경
-                this.Cursor = new Cursor("alternate.ani");
+                // 좌클릭 포인터 변경 (제미나이)
+                IntPtr ptrLeft = LoadCursorFromFile("pointer.ani");
+                if (ptrLeft != IntPtr.Zero) this.Cursor = new Cursor(ptrLeft);
 
                 //　좌클릭으로　잡았을　때
                 System.Media.SoundPlayer catchSound = new System.Media.SoundPlayer("jingles_STEEL06.wav");
@@ -91,11 +96,12 @@ namespace CatchButton
             // 2. 우클릭
             else if (e.Button == MouseButtons.Right)
             {
-                // 우클릭 포인터 변경
-                this.Cursor = new Cursor("help.ani");
+                // 우클릭 포인터 변경 (제미나이)
+                IntPtr ptrRight = LoadCursorFromFile("help.ani");
+                if (ptrRight != IntPtr.Zero) this.Cursor = new Cursor(ptrRight);
 
                 // 우클릭으로 잡았을 때
-                MessageBox.Show("좌클릭으로 잡으세요", "다시!");
+                MessageBox.Show("좌클릭으로 잡으세요", "다시");
             }
         }
     }
