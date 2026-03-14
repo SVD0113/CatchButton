@@ -12,6 +12,7 @@ namespace CatchButton
 {
     public partial class Form1 : Form
     {
+
         // 필드 선언
         private Random rd;
         private int x;
@@ -49,31 +50,53 @@ namespace CatchButton
             int nextX = localRd.Next(0, maxX + 1);
             int nextY = localRd.Next(0, maxY + 1);
 
-            // 4. 위치 할당(새로운 Point 객체 생성)
+            // ４．마우스　포인터　변경
+            run.Cursor = new Cursor("pointer.ani");
+
+            // ５. 위치 할당(새로운 Point 객체 생성)
             run.Location = new Point(nextX, nextY);
 
-            // 5. 시각적 피드백(폼 제목 표시줄에 좌표 출력)
+            // ６. 시각적 피드백(폼 제목 표시줄에 좌표 출력)
             this.Text = $"버튼위치: ({nextX}, {nextY})";
 
-            // 6. 놓쳤을 때 효과음
+            // ７. 놓쳤을 때 효과음
             System.Media.SoundPlayer escapeSound = new System.Media.SoundPlayer("jingles_PIZZI07.wav");
             escapeSound.Play();
         }
 
         private void run_Click(object sender, EventArgs e)
         {
-            // 1. 잡았을 때 효과음
-            System.Media.SoundPlayer catchSound = new System.Media.SoundPlayer("jingles_STEEL06.wav");
-            catchSound.Play();
             
-            // 2. 잡았을 때 메시지
-            MessageBox.Show("축하합니다~!", "성공");
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void run_MouseDown(object sender, MouseEventArgs e)
+        {
+            // 1. 좌클릭
+            if (e.Button == MouseButtons.Left)
+            {
+                // 좌클릭 포인터 변경
+                this.Cursor = new Cursor("alternate.ani");
+
+                //　좌클릭으로　잡았을　때
+                System.Media.SoundPlayer catchSound = new System.Media.SoundPlayer("jingles_STEEL06.wav");
+                catchSound.Play();
+                MessageBox.Show("축하합니다~!", "성공");
+            }
+
+            // 2. 우클릭
+            else if (e.Button == MouseButtons.Right)
+            {
+                // 우클릭 포인터 변경
+                this.Cursor = new Cursor("help.ani");
+
+                // 우클릭으로 잡았을 때
+                MessageBox.Show("좌클릭으로 잡으세요", "다시!");
+            }
         }
     }
 }

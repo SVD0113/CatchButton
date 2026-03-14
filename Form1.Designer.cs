@@ -43,6 +43,7 @@
             this.run.Text = "잡아보소";
             this.run.UseVisualStyleBackColor = false;
             this.run.Click += new System.EventHandler(this.run_Click);
+            this.run.MouseDown += new System.Windows.Forms.MouseEventHandler(this.run_MouseDown);
             this.run.MouseEnter += new System.EventHandler(this.run_MouseEnter);
             // 
             // Form1
