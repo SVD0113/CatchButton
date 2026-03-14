@@ -21,6 +21,9 @@ namespace CatchButton
         private int x;
         private double randomDouble;
 
+        // 점수 변수
+         private int score = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -60,10 +63,13 @@ namespace CatchButton
             // ５. 위치 할당(새로운 Point 객체 생성)
             run.Location = new Point(nextX, nextY);
 
-            // ６. 시각적 피드백(폼 제목 표시줄에 좌표 출력)
-            this.Text = $"버튼위치: ({nextX}, {nextY})";
+            // 6. 놓쳤으니 점수 마이너스
+            score -= 3;
 
-            // ７. 놓쳤을 때 효과음
+            // 7. 시각적 피드백(폼 제목 표시줄에 좌표 출력)
+            this.Text = $"현재 점수: {score}점 | 버튼위치: ({nextX}, {nextY})";
+
+            // 8. 놓쳤을 때 효과음
             System.Media.SoundPlayer escapeSound = new System.Media.SoundPlayer("jingles_PIZZI07.wav");
             escapeSound.Play();
         }
@@ -87,6 +93,12 @@ namespace CatchButton
                 IntPtr ptrLeft = LoadCursorFromFile("alternate.ani");
                 if (ptrLeft != IntPtr.Zero) this.Cursor = new Cursor(ptrLeft);
 
+                // 잡았으니 점수 플러스
+                score += 20;
+
+                // 점수 즉시 반영
+                this.Text = $"현재 점수: {score}점";
+
                 // 성공 효과음
                 System.Media.SoundPlayer catchSound = new System.Media.SoundPlayer("jingles_STEEL06.wav");
                 catchSound.Play();
@@ -98,6 +110,10 @@ namespace CatchButton
                 //　좌클릭으로　잡았을　때
                 MessageBox.Show("축하합니다~!", "성공");
 
+                // 좌클릭은 버튼 크기 1%씩 축소 (*0.9)
+                run.Width = (int)(run.Width * 0.9);
+                run.Height = (int)(run.Height * 0.9);
+
                 // 포인터 복구 (up안됨)
                 this.Cursor = Cursors.Default;
             }
@@ -108,6 +124,16 @@ namespace CatchButton
                 // 우클릭 포인터 변경 (제미나이)
                 IntPtr ptrRight = LoadCursorFromFile("help.ani");
                 if (ptrRight != IntPtr.Zero) this.Cursor = new Cursor(ptrRight);
+
+                // 우클릭으로 잡았으니 점수 조금만 플러스
+                score += 10;
+
+                // 점수 즉시 반영
+                this.Text = $"현재 점수: {score}";
+
+                // 우클릭은 버튼 크기 2%씩 확대 (*1.2)
+                run.Width = (int)(run.Width * 1.2);
+                run.Height = (int)(run.Height * 1.2);
 
                 // 포인터 보여주는 시간
                 Application.DoEvents();
