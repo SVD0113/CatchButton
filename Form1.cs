@@ -66,8 +66,8 @@ namespace CatchButton
             // 3. 가용 영역 계산(버튼이 폼 테두리에 걸리지 않게 보호)
             int maxX = this.ClientSize.Width - run.Width;
             int maxY = this.ClientSize.Height - run.Height;
-            if (maxX < 0) maxX = 650;
-            if (maxY < 0) maxY = 400;
+            if (maxX < 0) maxX = 0;
+            if (maxY < 0) maxY = 0;
 
             // 4. 랜덤 좌표 추출(0 ~ 최대 가용치 사이)
             int nextX = localRd.Next(0, maxX + 1);
@@ -99,7 +99,7 @@ namespace CatchButton
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            this.MinimumSize = new Size(1200, 800);
         }
 
         private void run_MouseDown(object sender, MouseEventArgs e)
