@@ -202,6 +202,9 @@ namespace CatchButton
 
             // 4. CatchButton 활성화
             run.Enabled = true;
+
+            // 5. 버튼 위치 초기화
+            run.Location = new Point((this.ClientSize.Width - run.Width) / 2, (this.ClientSize.Height - run.Height) / 2);
         }
     }
 }
