@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace CatchButton
 {
-    public partial class Form1 : Form
+    public partial class CatchButton_Real_Ver : Form
     {
         // <제미나이> Win32 Api활용
         [System.Runtime.InteropServices.DllImport("user32.dll")]
@@ -30,7 +30,7 @@ namespace CatchButton
         // 우클릭 횟수 
         private int RightClickCount = 0;
 
-        public Form1()
+        public CatchButton_Real_Ver()
         {
             InitializeComponent();
 
